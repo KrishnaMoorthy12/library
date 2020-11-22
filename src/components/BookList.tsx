@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 
@@ -8,13 +9,15 @@ export default function BookList() {
     <List>
       {data &&
         data.books.map((book: IBook) => (
-          <ListItem key={book.id}>
-            <div>
-              <h2>{book.name}</h2>
-              <p>{book.genre}</p>
-            </div>
-            <p>{book.author.name}</p>
-          </ListItem>
+          <Link href={{ pathname: '/book', query: { id: book.id } }} key={book.id}>
+            <ListItem>
+              <div>
+                <h2>{book.name}</h2>
+                <p>{book.genre}</p>
+              </div>
+              <p>{book.author.name}</p>
+            </ListItem>
+          </Link>
         ))}
     </List>
   );
