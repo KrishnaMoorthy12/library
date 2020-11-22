@@ -6,15 +6,15 @@ import BookList from '../components/BookList';
 const Heading = styled.h1`
   font-size: 4rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   text-align: center;
   color: ${props => props.theme.primary.main};
 `;
 
 const Container = styled.main`
-  max-width: 90%;
-  margin: 0 auto;
-  font-size: 1.2rem;
+  max-width: 80%;
+  margin: 4rem auto;
+  font-size: 1rem;
 `;
 
 export default function Home() {
