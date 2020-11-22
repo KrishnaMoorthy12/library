@@ -1,6 +1,35 @@
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 
+export default function BookList() {
+  const { loading, error, data } = useQuery(getBooksQuery);
+
+  return (
+    <List>
+      {data &&
+        data.books.map((book: IBook) => (
+          <ListItem key={book.id}>
+            <div>
+              <h2>{book.name}</h2>
+              <p>{book.genre}</p>
+            </div>
+            <p>{book.author.name}</p>
+          </ListItem>
+        ))}
+    </List>
+  );
+}
+
+interface IBook {
+  id: string;
+  name: string;
+  genre: string;
+  author: {
+    name: string;
+    id: string;
+  };
+}
+
 const getBooksQuery = gql`
   {
     books {
@@ -17,7 +46,7 @@ const getBooksQuery = gql`
 
 const List = styled.ul`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 1.4rem;
 `;
 
@@ -35,47 +64,35 @@ const ListItem = styled.li`
     background-color: ${props => props.theme.primary.light};
     box-shadow: 0 0 0.8rem ${props => props.theme.primary.light};
 
-    & > h2,
+    & > div > h2,
     & > p {
       color: #000;
       font-weight: 600;
     }
   }
 
-  & > h2 {
-    font-weight: 600;
-    font-size: 1.4rem;
+  & > div {
+    display: flex;
     margin-bottom: 1rem;
   }
 
+  & > div > h2 {
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-right: auto;
+  }
+
+  & > div > p {
+    align-self: flex-start;
+    margin: 0.3rem;
+    background-color: ${props => props.theme.secondary.dark};
+    border-radius: 1rem;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+
   & > p {
-    font-size: 0.8rem;
-    color: ${props => props.theme.secondary.dark};
+    font-size: 0.85rem;
+    color: ${props => props.theme.secondary.light};
   }
 `;
-
-export default function BookList() {
-  const { loading, error, data } = useQuery(getBooksQuery);
-
-  return (
-    <List>
-      {data &&
-        data.books.map((book: IBook) => (
-          <ListItem key={book.id}>
-            <h2>{book.name}</h2>
-            <p>{book.author.name}</p>
-          </ListItem>
-        ))}
-    </List>
-  );
-}
-
-interface IBook {
-  id: string;
-  name: string;
-  genre: string;
-  author: {
-    name: string;
-    id: string;
-  };
-}
