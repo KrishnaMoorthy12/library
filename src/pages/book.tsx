@@ -24,7 +24,9 @@ export default function book() {
     }
   `;
 
-  const { loading, error, data }: { loading?: any; error?: any; data: { book: IBook } } = useQuery(getBookDetailsQuery);
+  const { loading, error, data }: { loading?: boolean; error?: any; data: { book: IBook } } = useQuery(
+    getBookDetailsQuery
+  );
 
   return (
     <>
@@ -108,6 +110,10 @@ const Details = styled.div`
   margin: 1rem auto;
   flex-direction: column;
 
+  & > div {
+    margin: 1rem 0;
+  }
+
   @media (max-width: 700px) {
     width: 100%;
   }
@@ -125,10 +131,11 @@ const Detail = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
-  padding: 1rem 0;
   font-size: 1.4rem;
 
   & > div:nth-child(odd) {
     /* text-align: right; */
   }
 `;
+
+export { Details, Detail };
