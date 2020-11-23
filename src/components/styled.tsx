@@ -85,7 +85,7 @@ function BackButton() {
   return (
     <SBackButton
       onClick={() => {
-        Router.back();
+        Router.push('/');
       }}
     >
       {'<'}
