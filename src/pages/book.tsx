@@ -16,7 +16,6 @@ export default function book() {
           name,
           age,
           sex,
-          id,
           books {
             name
           }
@@ -25,7 +24,7 @@ export default function book() {
     }
   `;
 
-  const { loading, error, data } = useQuery(getBookDetailsQuery);
+  const { loading, error, data }: { loading?: any; error?: any; data: { book: IBook } } = useQuery(getBookDetailsQuery);
 
   return (
     <>
@@ -75,7 +74,7 @@ export default function book() {
               <Detail>
                 <div>Other books by author</div>
                 <div>
-                  {data.book.author.books.map((book, index) => {
+                  {data.book.author.books.map((book: IBook, index: number) => {
                     return book.name + (index !== data.book.author.books.length - 1 ? ', ' : '');
                   })}
                 </div>
@@ -88,6 +87,19 @@ export default function book() {
       )}
     </>
   );
+}
+
+interface IBook {
+  name: string;
+  genre: string;
+  author: {
+    name: string;
+    age: number;
+    sex: string;
+    books: Array<{
+      name: string;
+    }>;
+  };
 }
 
 const Details = styled.div`
