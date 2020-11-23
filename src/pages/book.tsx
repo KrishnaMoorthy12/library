@@ -106,7 +106,7 @@ interface IBook {
 
 const Details = styled.div`
   display: flex;
-  width: 50%;
+  max-width: 50%;
   margin: 1rem auto;
   flex-direction: column;
 
@@ -114,16 +114,16 @@ const Details = styled.div`
     margin: 1rem 0;
   }
 
-  @media (max-width: 700px) {
-    width: 100%;
+  @media (max-width: 1000px) {
+    max-width: 80%;
   }
 
   @media (max-width: 800px) {
-    width: 95%;
+    max-width: 90%;
   }
 
-  @media (max-width: 1000px) {
-    width: 80%;
+  @media (max-width: 700px) {
+    max-width: 95%;
   }
 `;
 
