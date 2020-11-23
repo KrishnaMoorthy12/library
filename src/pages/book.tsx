@@ -35,7 +35,9 @@ export default function book() {
           <Head>
             <title>Loading</title>
           </Head>
-          <Heading>Loading</Heading>
+          <SubHeading style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            Loading
+          </SubHeading>
         </>
       )}
       {error && (

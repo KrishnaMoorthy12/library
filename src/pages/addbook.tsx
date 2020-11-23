@@ -130,6 +130,7 @@ const Input = styled.input`
   border-radius: 0.2rem;
   background-color: #222;
   width: 100%;
+  transition: all 0.2s;
 
   &:focus {
     outline: none;
@@ -151,6 +152,7 @@ const Select = styled.select`
   border-radius: 0.2rem;
   background-color: #222;
   width: 100%;
+  transition: all 0.2s;
 
   &:focus {
     outline: none;
@@ -171,6 +173,7 @@ const Button = styled.button`
   font-family: inherit;
   font-size: inherit;
   cursor: pointer;
+  transition: all 0.2s;
 
   &::focus {
     outline: none;

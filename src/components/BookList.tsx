@@ -49,13 +49,15 @@ const getBooksQuery = gql`
 
 const List = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   grid-gap: 1.4rem;
 `;
 
 const ListItem = styled.li`
   list-style: none;
   padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
   background-color: #222;
   min-height: 5rem;
   border-radius: 0.3rem;
@@ -76,6 +78,7 @@ const ListItem = styled.li`
 
   & > div {
     display: flex;
+    flex: 1;
     margin-bottom: 1rem;
   }
 
