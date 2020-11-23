@@ -82,7 +82,7 @@ export default function book() {
             </Details>
           </Container>
           <BackButton />
-          <AddButton href='/' />
+          <AddButton />
         </>
       )}
     </>

@@ -69,9 +69,9 @@ const SBackButton = styled.div`
   }
 `;
 
-function AddButton({ href }: { href: string }) {
+function AddButton() {
   return (
-    <Link href={href}>
+    <Link href='/addbook'>
       <SAddButton>+</SAddButton>
     </Link>
   );
