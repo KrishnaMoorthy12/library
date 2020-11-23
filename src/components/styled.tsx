@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import Router from 'next/router';
 import styled from 'styled-components';
 
 const Heading = styled.h1`
@@ -20,7 +22,7 @@ const Container = styled.main`
   font-size: 1rem;
 `;
 
-const AddButton = styled.div`
+const SAddButton = styled.div`
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -44,4 +46,47 @@ const AddButton = styled.div`
   }
 `;
 
-export { Heading, Container, AddButton, SubHeading };
+const SBackButton = styled.div`
+  position: fixed;
+  bottom: 7rem;
+  right: 2rem;
+  height: 4rem;
+  width: 4rem;
+  background-color: ${props => props.theme.primary.main};
+  color: #000;
+  border-radius: 50%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: ${props => props.theme.primary.dark};
+  }
+`;
+
+function AddButton({ href }: { href: string }) {
+  return (
+    <Link href={href}>
+      <SAddButton>+</SAddButton>
+    </Link>
+  );
+}
+
+function BackButton() {
+  return (
+    <SBackButton
+      onClick={() => {
+        Router.back();
+      }}
+    >
+      {'<'}
+    </SBackButton>
+  );
+}
+
+export { Heading, Container, AddButton, BackButton, SubHeading };

@@ -14,7 +14,7 @@ export default function Home() {
         <Heading>Library</Heading>
         <BookList />
       </Container>
-      <AddButton>+</AddButton>
+      <AddButton href='/' />
     </div>
   );
 }

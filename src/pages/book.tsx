@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
-import { AddButton, Container, Heading, SubHeading } from '../components/styled';
+import { AddButton, BackButton, Container, Heading, SubHeading } from '../components/styled';
 
 export default function book() {
   const { query } = useRouter();
@@ -82,7 +82,8 @@ export default function book() {
               </Detail>
             </Details>
           </Container>
-          <AddButton>+</AddButton>
+          <BackButton />
+          <AddButton href='/' />
         </>
       )}
     </>
