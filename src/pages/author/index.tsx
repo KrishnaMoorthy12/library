@@ -9,7 +9,7 @@ import Link from 'next/link';
 export default function Author() {
   const { query } = useRouter();
 
-  const getBookDetailsQuery = gql`
+  const getAuthorDetailsQuery = gql`
     {
       author(id: "${query.id}") {
         name,
@@ -25,7 +25,7 @@ export default function Author() {
   `;
 
   const { loading, error, data }: { loading?: boolean; error?: any; data: { author: IAuthor } } = useQuery(
-    getBookDetailsQuery
+    getAuthorDetailsQuery
   );
 
   return (
@@ -90,9 +90,11 @@ interface IAuthor {
   name: string;
   age: number;
   sex: string;
-  books: Array<{
-    id: string;
-    name: string;
-    genre: string;
-  }>;
+  books: Array<IBook>;
+}
+
+interface IBook {
+  id: string;
+  name: string;
+  genre: string;
 }

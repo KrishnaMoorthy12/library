@@ -1,44 +1,34 @@
 import styled from 'styled-components';
 import Router from 'next/router';
+import Head from 'next/head';
+import { gql, useMutation } from '@apollo/client';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { BackButton, Container, Heading } from '../../components/styled';
-import { Details } from '.';
-
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import Head from 'next/head';
+import { Details } from '../book';
 
 export default function AddABook() {
   const initialValue = {
     name: '',
-    genre: '',
-    authorId: ''
+    sex: '',
+    age: '20'
   };
 
   const [formValues, setFormValues] = useState(initialValue);
 
-  const getAuthorsQuery = gql`
-    {
-      authors {
-        name
-        id
-      }
-    }
-  `;
-
-  const addBookQuery = gql`
+  const addAuthorQuery = gql`
     mutation {
-      addBook(
+      addAuthor(
         name: "${formValues.name.trim()}",
-        genre: "${formValues.genre.trim()}",
-        authorId: "${formValues.authorId}") {
+        sex: "${formValues.sex.trim()}",
+        age: ${parseInt(formValues.age, 10)}
+        ) {
         id
       }
     }
   `;
 
-  const { data }: { data: { authors: Array<IAuthor> } } = useQuery(getAuthorsQuery);
-  const [addBook, { data: response }] = useMutation(addBookQuery);
+  const [addAuthor, { data: response }] = useMutation(addAuthorQuery);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.currentTarget;
@@ -55,55 +45,42 @@ export default function AddABook() {
       return;
     }
 
-    const response = await addBook();
-    if (response && response.data.addBook.id) {
-      Router.push(`/book?id=${response.data.addBook.id}`);
+    const response = await addAuthor();
+    if (response && response.data.addAuthor.id) {
+      Router.push(`/author?id=${response.data.addAuthor.id}`);
     }
   };
 
   return (
     <>
       <Head>
-        <title>Add a book</title>
+        <title>Add an author</title>
       </Head>
       <Container>
-        <Heading>Add Book</Heading>
-        <p style={{ textAlign: 'center' }}>Fill all the details to add a new book</p>
+        <Heading>Add an author</Heading>
+        <p style={{ textAlign: 'center' }}>Fill all the details to add a new author</p>
         <form onSubmit={handleSubmit}>
           <Details>
             <div>
               <Label>Name</Label>
-              <Input
-                type='text'
-                name='name'
-                placeholder='Alice in Wonderland'
-                value={formValues.name}
-                onChange={handleChange}
-              />
+              <Input type='text' name='name' placeholder='Alice' value={formValues.name} onChange={handleChange} />
             </div>
             <div>
               <Label>Genre</Label>
-              <Input type='text' name='genre' placeholder='Fantasy' value={formValues.genre} onChange={handleChange} />
+              <Input type='number' name='age' min={5} max={100} value={formValues.age} onChange={handleChange} />
             </div>
             <div>
-              <Label>Author</Label>
-              <Select name='authorId' value={formValues.authorId} onChange={handleChange}>
-                <option value=''>Select an author</option>
-                {data &&
-                  data.authors &&
-                  data.authors.map(author => {
-                    return (
-                      <option key={author.id} value={author.id}>
-                        {author.name}
-                      </option>
-                    );
-                  })}
+              <Label>Sex</Label>
+              <Select name='sex' value={formValues.sex} onChange={handleChange}>
+                <option value=''>Select an gender</option>
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
+                <option value='Other'>Other</option>
               </Select>
             </div>
             <div>
               <Button type='submit'>Submit</Button>
               <Button onClick={resetForm}>Reset</Button>
-              <Button onClick={() => Router.push('/author/add')}>Add Author</Button>
             </div>
           </Details>
         </form>
