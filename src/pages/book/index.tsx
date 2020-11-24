@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
-import { AddButton, BackButton, Container, Heading, SubHeading } from '../components/styled';
+import { AddButton, BackButton, Container, Heading, SubHeading } from '../../components/styled';
 
 export default function book() {
   const { query } = useRouter();

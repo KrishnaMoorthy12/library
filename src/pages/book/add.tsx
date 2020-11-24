@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import Router from 'next/router';
 
-import { BackButton, Container, Heading } from '../components/styled';
-import { Details } from './book';
+import { BackButton, Container, Heading } from '../../components/styled';
+import { Details } from '.';
 
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Head from 'next/head';
 
-export default function addbook() {
+export default function AddABook() {
   const initialValue = {
     name: '',
     genre: '',
