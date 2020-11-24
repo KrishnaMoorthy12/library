@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import { AddButton, BackButton, Container, Heading, SubHeading } from '../../components/styled';
 import { Details, Detail } from '../book';
+import Link from 'next/link';
 
 export default function Author() {
   const { query } = useRouter();
@@ -70,7 +71,9 @@ export default function Author() {
             </Detail>
             {data.author.books.map(book => (
               <Detail key={book.id}>
-                <div>{book.name}</div>
+                <div>
+                  <Link href={{ pathname: '/book', query: { id: book.id } }}>{book.name}</Link>
+                </div>
                 <div>{book.genre}</div>
               </Detail>
             ))}
