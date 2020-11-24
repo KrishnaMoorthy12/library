@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import { AddButton, BackButton, Container, Heading, SubHeading } from '../../components/styled';
+import Link from 'next/link';
 
 export default function book() {
   const { query } = useRouter();
@@ -13,6 +14,7 @@ export default function book() {
         name,
         genre,
         author {
+          id,
           name,
           age,
           sex,
@@ -63,24 +65,10 @@ export default function book() {
               </Detail>
               <Detail>
                 <div>Author</div>
-                <div>{data.book.author.name}</div>
-              </Detail>
-
-              <SubHeading>More about {data.book.author.name}</SubHeading>
-              <Detail>
-                <div>Age</div>
-                <div>{data.book.author.age}</div>
-              </Detail>
-              <Detail>
-                <div>Gender</div>
-                <div>{data.book.author.sex}</div>
-              </Detail>
-              <Detail>
-                <div>Other books by author</div>
                 <div>
-                  {data.book.author.books.map((book: IBook, index: number) => {
-                    return book.name + (index !== data.book.author.books.length - 1 ? ', ' : '');
-                  })}
+                  <Link href={{ pathname: '/author', query: { id: data.book.author.id } }}>
+                    {data.book.author.name}
+                  </Link>
                 </div>
               </Detail>
             </Details>
@@ -93,17 +81,20 @@ export default function book() {
   );
 }
 
+interface IAuthor {
+  name: string;
+  id: string;
+  age: number;
+  sex: string;
+  books: Array<{
+    name: string;
+  }>;
+}
+
 interface IBook {
   name: string;
   genre: string;
-  author: {
-    name: string;
-    age: number;
-    sex: string;
-    books: Array<{
-      name: string;
-    }>;
-  };
+  author: IAuthor;
 }
 
 const Details = styled.div`

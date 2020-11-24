@@ -19,7 +19,7 @@ const SubHeading = styled.h2`
 const Container = styled.main`
   max-width: 80%;
   margin: 4rem auto;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 
   @media (max-width: 800px) {
     max-width: 90%;
