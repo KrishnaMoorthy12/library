@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { AppPropsType } from 'next/dist/next-server/lib/utils';
 import { MyThemeProvider } from '../components';
 
 const client = new ApolloClient({
@@ -6,7 +7,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppPropsType) {
   return (
     <MyThemeProvider>
       <ApolloProvider client={client}>

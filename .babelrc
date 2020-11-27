@@ -1,5 +1,5 @@
 {
-  "presets": ["next/babel", "@babel/typescript"],
+  "presets": ["next/babel"],
   "plugins": [
     ["styled-components", { "ssr": true }],
     "@babel/proposal-class-properties",
