@@ -2,12 +2,12 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { AppPropsType } from 'next/dist/next-server/lib/utils';
 import { MyThemeProvider } from '../components';
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: 'http://127.0.0.1:5000/api',
   cache: new InMemoryCache()
 });
 
-function MyApp({ Component, pageProps }: AppPropsType) {
+export default function MyApp({ Component, pageProps }: AppPropsType) {
   return (
     <MyThemeProvider>
       <ApolloProvider client={client}>
@@ -16,5 +16,3 @@ function MyApp({ Component, pageProps }: AppPropsType) {
     </MyThemeProvider>
   );
 }
-
-export default MyApp;
