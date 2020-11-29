@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import styled from 'styled-components';
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import { AddButton, BackButton, Container, Heading, SubHeading } from '../../components/styled';
 import Link from 'next/link';
 
@@ -26,9 +26,7 @@ export default function book() {
     }
   `;
 
-  const { loading, error, data }: { loading?: boolean; error?: any; data: { book: IBook } } = useQuery(
-    getBookDetailsQuery
-  );
+  const { loading, error, data }: IBookQueryResult = useQuery(getBookDetailsQuery);
 
   return (
     <>
@@ -79,6 +77,12 @@ export default function book() {
       )}
     </>
   );
+}
+
+interface IBookQueryResult {
+  loading: boolean;
+  error?: ApolloError;
+  data?: { book: IBook };
 }
 
 interface IAuthor {

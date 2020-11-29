@@ -1,26 +1,63 @@
 import Link from 'next/link';
+import Head from 'next/head';
 import styled from 'styled-components';
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 
-export default function BookList() {
+import { Container, Heading, SubHeading } from './styled';
+
+export const getServerSideProps = (): { props: IBookQueryResult } => {
   const { loading, error, data } = useQuery(getBooksQuery);
+  return {
+    props: { loading, error, data }
+  };
+};
 
+export default function BookList({ loading, error, data }: IBookQueryResult) {
   return (
-    <List>
-      {data &&
-        data.books.map((book: IBook) => (
-          <Link href={{ pathname: '/book', query: { id: book.id } }} key={book.id}>
-            <ListItem>
-              <div>
-                <h2>{book.name}</h2>
-                <p>{book.genre}</p>
-              </div>
-              <p>{book.author.name}</p>
-            </ListItem>
-          </Link>
-        ))}
-    </List>
+    <>
+      {loading && (
+        <>
+          <Head>
+            <title>Loading</title>
+          </Head>
+          <SubHeading style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            Loading
+          </SubHeading>
+        </>
+      )}
+      {error && (
+        <Container>
+          <Head>
+            <title>Error</title>
+          </Head>
+          <Heading>Error</Heading>
+          <p>{JSON.stringify(error)}</p>
+        </Container>
+      )}
+      <List>
+        {data &&
+          data.books.map((book: IBook) => (
+            <Link href={{ pathname: '/book', query: { id: book.id } }} key={book.id}>
+              <ListItem>
+                <div>
+                  <h2>{book.name}</h2>
+                  <p>{book.genre}</p>
+                </div>
+                <p>{book.author.name}</p>
+              </ListItem>
+            </Link>
+          ))}
+      </List>
+    </>
   );
+}
+
+interface IBookQueryResult {
+  loading: boolean;
+  error?: ApolloError;
+  data?: {
+    books: Array<IBook>;
+  };
 }
 
 interface IBook {
